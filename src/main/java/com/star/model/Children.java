@@ -1,9 +1,8 @@
 package com.star.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import io.ebean.Ebean;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,10 +11,10 @@ public class Children {
 
     @Id
     @Column(name = "id", nullable = false)
-    private String id;
+    private Integer id;
 
-    @Column(name ="open_id")
-    private String openId;
+    @Column(name = "user_id")
+    private String userId;
 
     @Column(name ="name")
     private String name;
@@ -35,29 +34,30 @@ public class Children {
     @Column(name ="score")
     private Integer score;
 
-    @Column(name ="type")
-    private Integer type;
-
-    @Column(name ="state")
-    private Integer state;
-
     @Column(name ="updated_at")
     private Date updatedAt;
 
-    public String getId() {
+    @Column(name ="deleted")
+    private Integer deleted;
+    public void save(){
+        this.setUpdatedAt(new Date());
+        Ebean.save(this);
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getOpenId() {
-        return openId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setOpenId(String openId) {
-        this.openId = openId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -108,27 +108,19 @@ public class Children {
         this.score = score;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }
