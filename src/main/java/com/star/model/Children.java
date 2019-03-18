@@ -40,6 +40,7 @@ public class Children {
     @Column(name ="deleted")
     private Integer deleted;
     public void save(){
+        this.setScore(0);
         this.setUpdatedAt(new Date());
         Ebean.save(this);
     }

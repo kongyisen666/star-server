@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/lgoin")
-public class lgoinController {
+public class LgoinController {
 
     @ResponseBody
     @RequestMapping(value = "/")
