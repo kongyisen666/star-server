@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "tbl_score_log")
@@ -23,7 +24,7 @@ public class ScoreLog {
     private String msg;
 
     @Column(name = "inserted_at")
-    private String insertedAt;
+    private Date insertedAt;
 
     public Integer getId() {
         return id;
@@ -57,11 +58,11 @@ public class ScoreLog {
         this.msg = msg;
     }
 
-    public String getInsertedAt() {
+    public Date getInsertedAt() {
         return insertedAt;
     }
 
-    public void setInsertedAt(String insertedAt) {
+    public void setInsertedAt(Date insertedAt) {
         this.insertedAt = insertedAt;
     }
 }

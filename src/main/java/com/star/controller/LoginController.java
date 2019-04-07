@@ -6,20 +6,25 @@ import com.star.model.AjaxReturnForm;
 import com.star.model.Children;
 import com.star.model.User;
 import com.star.util.HttpRequest;
+import com.star.util.SessionUtil;
 import io.ebean.Ebean;
 import net.sf.json.JSONObject;
+import org.apache.http.HttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/lgoin")
-public class LgoinController {
+@RequestMapping("/login")
+public class LoginController {
 
     @ResponseBody
     @RequestMapping(value = "/")
-    public AjaxReturnForm decodeUserInfo(String code) {
+    public AjaxReturnForm decodeUserInfo(HttpServletRequest request, String code) {
         if (code == null || code.length() == 0) {
             return new AjaxReturnForm(false,null,"code不能为空");
         }
@@ -27,13 +32,17 @@ public class LgoinController {
         if (StringUtil.isNullOrEmpty(openId)) {
             return new AjaxReturnForm(false,null,"openid为空");
         }
-        List<User> Users = Ebean.find(User.class).where().eq("openId", openId).findList();
-        if (Users.size()>0){
-            return new AjaxReturnForm(true,null,Users.get(0));
+        List<User> users = Ebean.find(User.class).where().eq("openId", openId).findList();
+        HttpSession session = request.getSession();
+        if (users.size()>0){
+            User user = users.get(0);
+            session.setAttribute("user",user);
+            return new AjaxReturnForm(true,null,user);
         }
         User user = new User();
         user.setOpenId(openId);
         user.save();
+        session.setAttribute("user",user);
         return new AjaxReturnForm(true,null,user);
     }
 

@@ -14,7 +14,7 @@ public class Children {
     private Integer id;
 
     @Column(name = "user_id")
-    private String userId;
+    private Integer userId;
 
     @Column(name ="name")
     private String name;
@@ -53,11 +53,11 @@ public class Children {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
