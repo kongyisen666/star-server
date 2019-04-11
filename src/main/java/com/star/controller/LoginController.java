@@ -56,7 +56,7 @@ public class LoginController {
         //小程序唯一标识   (在微信小程序管理后台获取)
         String wxspAppid = "wx3c3155c6b348d0b0";
         //小程序的 app secret (在微信小程序管理后台获取)
-        String wxspSecret = "f560145ed5e6452d87da539b792a3ff4";
+        String wxspSecret = "60a1de54645691d0153361890b94d31c";
         //授权（必填）
         String grant_type = "authorization_code";
         // 1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid
@@ -66,8 +66,6 @@ public class LoginController {
         String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
         //解析相应内容（转换成json对象）
         JSONObject json = JSONObject.fromObject(sr);
-        //获取会话密钥（session_key）
-        String session_key = json.get("session_key").toString();
         //用户的唯一标识（openid）
         String openid = (String) json.get("openid");
         return openid;

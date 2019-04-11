@@ -25,6 +25,9 @@ public class User {
     @Column(name = "type")
     private Integer type;//0未添加孩子1已添加孩子
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "deleted")
     private Integer deleted;
 
@@ -44,6 +47,14 @@ public class User {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getId() {

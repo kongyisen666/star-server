@@ -1,5 +1,7 @@
 package com.star.service;
 
+import com.framework.util.ModelUtil;
+import com.star.model.Children;
 import com.star.model.ScoreLog;
 import io.ebean.Ebean;
 
@@ -7,6 +9,22 @@ import java.util.Date;
 
 public class ChildrenService {
 
+
+    // 新增或删除
+    public void addOrUpdate(Children children){
+        if (null == children){
+            return;
+        }
+        if(null==children.getId()){
+            children.save();
+        }
+        if(null!=children.getId()){
+            Children c = ModelUtil.copyModel(children);
+            Ebean.update(c);
+        }
+    }
+
+    //增加分数
     public Boolean addScore(Integer childrenId,Integer score,String msg){
         if(null==childrenId||null == score){
             return false;

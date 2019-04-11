@@ -41,7 +41,6 @@ public class StringUtil {
 	/**
 	 * @name 转换时间类型
 	 * @description 将 date 类型转换成 string 类型，返回format格式"yyyy-MM-dd HH:mm:ss"
-	 * @author 赵丰登
 	 * @return
 	 */
 	public static String formatDate(Date date, String format) {
@@ -57,7 +56,7 @@ public class StringUtil {
 
 	/**
 	 * 得到文件名称
-	 * 
+	 *
 	 * @return
 	 */
 	public static String getFileNameBySysDate() {
@@ -74,7 +73,6 @@ public class StringUtil {
 	/**
 	 * @name MD5加密
 	 * @description MD5加密
-	 * @author 赵丰登
 	 * @return
 	 */
 	public static String MD5(String s) {
@@ -101,27 +99,25 @@ public class StringUtil {
 	/**
 	 * @name 判断 string 类型是否为空
 	 * @description 判断 string 类型是否为空，是则返回 true ，否则返回 false
-	 * @author 赵丰登
 	 * @return
 	 */
 	public static boolean isNullOrEmpty(String text) {
 
 		return text == null || text.isEmpty() || text.equals("null") || "".equals(text.trim());
 	}
-	
-	
+
+
 
 	public static Boolean isNotNullOrEmpty(String str) {
 		return !isNullOrEmpty(str);
 	}
-	
+
 
 	/**
 	 * 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址;
-	 * 
+	 *
 	 * @param request
 	 * @return
-	 * @throws IOException
 	 */
 	public final static String getIpAddress(HttpServletRequest request) {
 		// 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址

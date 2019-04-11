@@ -28,8 +28,20 @@ public class Children {
     @Column(name ="phone")
     private String phone;
 
-    @Column(name ="hobby")
-    private String hobby;
+    @Column(name ="birthday")
+    private Date birthday;
+
+    @Column(name ="grade")
+    private Integer grade;
+
+    @Column(name ="class")
+    private Integer cla;
+
+    @Column(name ="address")
+    private String address;
+
+    @Column(name ="school")
+    private String school;
 
     @Column(name ="score")
     private Integer score;
@@ -41,6 +53,7 @@ public class Children {
     private Integer deleted;
     public void save(){
         this.setScore(0);
+        this.setDeleted(0);
         this.setUpdatedAt(new Date());
         Ebean.save(this);
     }
@@ -93,12 +106,44 @@ public class Children {
         this.phone = phone;
     }
 
-    public String getHobby() {
-        return hobby;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setHobby(String hobby) {
-        this.hobby = hobby;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public Integer getCla() {
+        return cla;
+    }
+
+    public void setCla(Integer cla) {
+        this.cla = cla;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
 
     public Integer getScore() {
