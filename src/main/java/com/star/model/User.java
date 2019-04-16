@@ -38,6 +38,7 @@ public class User {
         this.setInsertedAt(new Date());
         this.setState(0);
         this.setType(0);
+        this.setDeleted(0);
         Ebean.save(this);
     }
 

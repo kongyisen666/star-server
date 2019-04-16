@@ -8,6 +8,7 @@ import com.star.model.AjaxReturnForm;
 import com.star.model.ScoreLog;
 import com.star.model.User;
 import com.star.service.ChildrenService;
+import com.star.service.SessionService;
 import com.star.util.SessionUtil;
 import io.ebean.Ebean;
 import org.springframework.stereotype.Controller;
@@ -30,8 +31,8 @@ public class ChildrenController {
     @ResponseBody
     @RequestMapping(value = "/get_children")
     public AjaxReturnForm getChildren(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
+        SessionService sessionService = new SessionService();
+        User user = sessionService.getUser(request);
         if(user == null){
             return new AjaxReturnForm(false,"请重新登陆",null);
         }
@@ -50,8 +51,8 @@ public class ChildrenController {
         if(null==children){
             return new AjaxReturnForm(false,"新增失败",null);
         }
-        HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
+        SessionService sessionService = new SessionService();
+        User user = sessionService.getUser(request);
         if(null==user){
             return new AjaxReturnForm(false,"重新登陆","");
         }
@@ -74,6 +75,8 @@ public class ChildrenController {
         user.setType(1);
         user.setPassword(StringUtil.MD5(map.get("password")+""));
         Ebean.update(user);
+        HttpSession session = request.getSession();
+        session.setAttribute("user",user);
         return new AjaxReturnForm(true,null,user);
     }
 
@@ -81,11 +84,11 @@ public class ChildrenController {
     @RequestMapping(value = "/add_score")
     public AjaxReturnForm addScore(@RequestBody Map<String, String> map) {
         Integer childrenId = map.get("childrenId")==null? null:Integer.parseInt( map.get("childrenId"));
-        Integer score = map.get("childrenId") == null? null:Integer.parseInt( map.get("score"));
-        String msg = map.get("msg");
         if (null==childrenId){
             return new AjaxReturnForm(false,"孩子编号为空",null);
         }
+        Integer score = map.get("childrenId") == null? null:Integer.parseInt( map.get("score"));
+        String msg = map.get("msg");
         List<Children> childrens = Ebean.find(Children.class).where().eq("id", childrenId).findList();
         if(childrens.size()==0){
             return new AjaxReturnForm(false,"未找到对应孩子",null);

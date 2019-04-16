@@ -19,7 +19,19 @@ public class AjaxReturnForm {
 		this.msg=msg;
 		this.object.put("object",object);
 	}
-	
+
+	public AjaxReturnForm returnErrorMsg(String msg){
+		this.success=false;
+		this.msg=msg;
+		return this;
+	}
+
+	public AjaxReturnForm addSuccess(Object object){
+		this.success=true;
+		this.object.put("object",object);
+		return this;
+	}
+
 	public Boolean getNeedLogin() {
 		return needLogin;
 	}

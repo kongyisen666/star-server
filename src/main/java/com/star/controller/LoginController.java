@@ -5,25 +5,43 @@ import com.framework.util.StringUtil;
 import com.star.model.AjaxReturnForm;
 import com.star.model.Children;
 import com.star.model.User;
+import com.star.service.SessionService;
 import com.star.util.HttpRequest;
 import com.star.util.SessionUtil;
 import io.ebean.Ebean;
 import net.sf.json.JSONObject;
 import org.apache.http.HttpResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
     @ResponseBody
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/home")
+    public AjaxReturnForm loginHome(HttpServletRequest request, @RequestBody Map<String, String> map){
+        SessionService sessionService = new SessionService();
+        User user = sessionService.getUser(request);
+        String password = map.get("password");
+        if(StringUtil.isNullOrEmpty(password)){
+            return new AjaxReturnForm().returnErrorMsg("密码错误");
+        }
+        if(StringUtil.MD5(password).equals(user.getPassword())){
+            return new AjaxReturnForm().addSuccess(null);
+        }
+        return new AjaxReturnForm().returnErrorMsg("密码错误");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/get_user")
     public AjaxReturnForm decodeUserInfo(HttpServletRequest request, String code) {
         if (code == null || code.length() == 0) {
             return new AjaxReturnForm(false,null,"code不能为空");
@@ -32,7 +50,7 @@ public class LoginController {
         if (StringUtil.isNullOrEmpty(openId)) {
             return new AjaxReturnForm(false,null,"openid为空");
         }
-        List<User> users = Ebean.find(User.class).where().eq("openId", openId).findList();
+        List<User> users = Ebean.find(User.class).where().eq("deleted",0).eq("openId", openId).findList();
         HttpSession session = request.getSession();
         if (users.size()>0){
             User user = users.get(0);
