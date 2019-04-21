@@ -25,9 +25,9 @@ public class ChildrenService {
     }
 
     //增加分数
-    public Boolean addScore(Integer childrenId,Integer score,String msg){
+    public ScoreLog addScore(Integer childrenId,Integer score,String msg){
         if(null==childrenId||null == score){
-            return false;
+            return null;
         }
         ScoreLog scoreLog = new ScoreLog();
         scoreLog.setChildrenId(childrenId);
@@ -38,8 +38,8 @@ public class ChildrenService {
         String sql = "update tbl_children set score = score + :score where id = :childrenId ";
         int execute = Ebean.createSqlUpdate(sql).setParameter("score", score).setParameter("childrenId", childrenId).execute();
         if (execute > 0){
-            return true;
+            return scoreLog;
         }
-        return false;
+        return null;
     }
 }

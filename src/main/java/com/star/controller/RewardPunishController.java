@@ -17,7 +17,6 @@ public class RewardPunishController {
     @ResponseBody
     @RequestMapping(value = "/search_by_type")
     public AjaxReturnForm searchByType(@RequestBody Map<String, String> map){
-        System.out.println(11111111);
         Integer type = Integer.parseInt(map.get("type"));
         if (null == type){
             return  new AjaxReturnForm().addSuccess(null);

@@ -94,9 +94,9 @@ public class ChildrenController {
             return new AjaxReturnForm(false,"未找到对应孩子",null);
         }
         ChildrenService childrenService = new ChildrenService();
-        Boolean success = childrenService.addScore(childrenId, score, msg);
-        if(success){
-            return new AjaxReturnForm(true,null,null);
+        ScoreLog scoreLog = childrenService.addScore(childrenId, score, msg);
+        if(null!=scoreLog){
+            return new AjaxReturnForm(true,null,scoreLog);
         }
         return new AjaxReturnForm(false,"分数增加失败",null);
     }

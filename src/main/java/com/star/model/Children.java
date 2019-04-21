@@ -23,7 +23,7 @@ public class Children {
     private Integer age;
 
     @Column(name ="sex")
-    private String sex;
+    private Integer sex;
 
     @Column(name ="phone")
     private String phone;
@@ -90,11 +90,11 @@ public class Children {
         this.age = age;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
