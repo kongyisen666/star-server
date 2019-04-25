@@ -1,12 +1,12 @@
 package com.star.model;
 
 import io.ebean.Ebean;
+import jdk.nashorn.internal.objects.annotations.Property;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_user")
@@ -34,12 +34,35 @@ public class User {
     @Column(name = "inserted_at")
     private Date insertedAt;
 
-    public void save(){
+    @Column(name = "role")
+    private Integer role;
+
+    @Transient
+    List<Children> childrenList;
+
+    public void save() {
         this.setInsertedAt(new Date());
         this.setState(0);
         this.setType(0);
         this.setDeleted(0);
+        this.setRole(0);
         Ebean.save(this);
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
+    public List<Children> getChildrenList() {
+        return Ebean.find(Children.class).where().eq("deleted", 0).eq("userId", this.getId()).findList();
+    }
+
+    public void setChildrenList(List<Children> childrenList) {
+        this.childrenList = childrenList;
     }
 
     public Integer getType() {
