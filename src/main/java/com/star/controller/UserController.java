@@ -19,7 +19,7 @@ public class UserController {
     /**
      * 激活用户/取消激活
      *
-     * @param userId
+     * @param map
      * @return
      */
     @RequestMapping("/activation")
