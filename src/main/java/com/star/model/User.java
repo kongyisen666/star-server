@@ -1,10 +1,7 @@
 package com.star.model;
 
 import io.ebean.Ebean;
-import jdk.nashorn.internal.objects.annotations.Property;
-
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
