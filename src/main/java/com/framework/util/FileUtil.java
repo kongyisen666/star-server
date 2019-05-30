@@ -57,7 +57,7 @@ public class FileUtil {
 	/**
 	 * @name 创建目录
 	 * @description 创建目录
-	 * @author 赵丰登
+	 * @author
 	 * @return
 	 */
 	public static void createDir(String dir) {

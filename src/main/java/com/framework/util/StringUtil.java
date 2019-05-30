@@ -13,7 +13,7 @@ public class StringUtil {
 	/**
 	 * @name 转换字符串
 	 * @description 将 string 类型 转换成 date 类型，返回"yyyy/M/d HH:mm:ss"格式
-	 * @author 赵丰登
+	 * @author
 	 * @return
 	 */
 	public static Date parseTimestamp(String dateText) {
