@@ -27,14 +27,14 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping(value = "/home")
-    public AjaxReturnForm loginHome(HttpServletRequest request, @RequestBody Map<String, String> map){
+    public AjaxReturnForm loginHome(HttpServletRequest request, @RequestBody Map<String, String> map) {
         SessionService sessionService = new SessionService();
         User user = sessionService.getUser(request);
         String password = map.get("password");
-        if(StringUtil.isNullOrEmpty(password)){
+        if (StringUtil.isNullOrEmpty(password)) {
             return new AjaxReturnForm().returnErrorMsg("密码错误");
         }
-        if(StringUtil.MD5(password).equals(user.getPassword())){
+        if (StringUtil.MD5(password).equals(user.getPassword())) {
             return new AjaxReturnForm().addSuccess(null);
         }
         return new AjaxReturnForm().returnErrorMsg("密码错误");
@@ -44,37 +44,38 @@ public class LoginController {
     @RequestMapping(value = "/get_user")
     public AjaxReturnForm decodeUserInfo(HttpServletRequest request, String code) {
         if (code == null || code.length() == 0) {
-            return new AjaxReturnForm(false,null,"code不能为空");
+            return new AjaxReturnForm(false, null, "code不能为空");
         }
         String openId = getOpenId(code);
         if (StringUtil.isNullOrEmpty(openId)) {
-            return new AjaxReturnForm(false,null,"openid为空");
+            return new AjaxReturnForm(false, null, "openid为空");
         }
-        List<User> users = Ebean.find(User.class).where().eq("deleted",0).eq("openId", openId).findList();
+        List<User> users = Ebean.find(User.class).where().eq("deleted", 0).eq("openId", openId).findList();
         HttpSession session = request.getSession();
-        if (users.size()>0){
+        if (users.size() > 0) {
             User user = users.get(0);
-            session.setAttribute("user",user);
-            return new AjaxReturnForm(true,null,user);
+            session.setAttribute("user", user);
+            return new AjaxReturnForm(true, null, user);
         }
         User user = new User();
         user.setOpenId(openId);
         user.save();
-        session.setAttribute("user",user);
-        return new AjaxReturnForm(true,null,user);
+        session.setAttribute("user", user);
+        return new AjaxReturnForm(true, null, user);
     }
 
 
     /**
      * 获取Openid
+     *
      * @param code 小程序code
      * @return
      */
-    private String getOpenId(String code){
+    private String getOpenId(String code) {
         //小程序唯一标识   (在微信小程序管理后台获取)
-        String wxspAppid = "wx3c3155c6b348d0b0";
+        String wxspAppid = "wxa06fa120a596fb7a";
         //小程序的 app secret (在微信小程序管理后台获取)
-        String wxspSecret = "60a1de54645691d0153361890b94d31c";
+        String wxspSecret = "becfd336131dd8b640f54fc2f3d07c30";
         //授权（必填）
         String grant_type = "authorization_code";
         // 1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid
